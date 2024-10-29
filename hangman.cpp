@@ -238,7 +238,7 @@ void gamePlay(vector<string>& words ) {
 
     }
 
-    if(game.win()) {
+    if(!game.win()) {
         cout << "Spelet är över! Ordet var: " << randomWord << endl;
     }
 }
