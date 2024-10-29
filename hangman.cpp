@@ -133,6 +133,10 @@ vector<string> loadWordsFromFile(const string& filename) {
     return words;
 }
 
+void gamePlay(vector<string>& words) {
+    //code
+}
+
 int main ()
 {
     vector<string>words = loadWordsFromFile("words.txt");
