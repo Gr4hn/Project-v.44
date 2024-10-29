@@ -6,6 +6,11 @@
 
 using namespace std;
 
+class Highscore
+{
+    //Kod för Highscore
+};
+
 int main ()
 {
     cout <<"Välkommen till spelet Hänga Gubbe!" << endl <<endl;
@@ -19,9 +24,6 @@ int main ()
         << "Ditt val: ";
         int choice;
         cin >> choice;
-
-
-
     } while (1);
     cout <<"Tack för att du spelade!" << endl;
     return 0;
