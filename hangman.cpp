@@ -15,6 +15,19 @@ class Player
 {
     //Kod för Player
 };
+
+void instructions()
+{
+    cout << "Dessa instruktioner & reglergäller för Hänga Gubbe" << endl << endl
+    << "Spelet handlar om att gissa ett slumpmäsigt utvalt ord" << endl
+    << "Ordet är dolt och anges med understräck som visar hur många bokstäver ordet innehåller" << endl
+    << "Du har 10 gissningar innan gubben hängs, för varje felaktigt gissat bokstav förlorar du en gissning " << endl
+    << "För varje bokstav du gissar rätt visas bokstaven i ordet" << endl
+    << "Du kan gissa på hela ordet när som helst, men gissar du fel kommer omgången att avslutas." << endl
+    << "Under din spelomgång kommer ett slumpmässig bokstav att räkna som 2 gissningar. Du får inte veta vilken bokstav detat är." << endl << endl
+    << "Lycka till!" << endl << endl;
+}
+
 void endGame(bool& gameIsRunning) {
     gameIsRunning = false;
 }
@@ -22,10 +35,11 @@ void endGame(bool& gameIsRunning) {
 void showMenu(vector<string>& words) {
     int choice;
     bool gameIsRunning = true;
-    cout <<"Välkommen till spelet Hänga Gubbe!" << endl <<endl;
+    cout <<"Välkommen till spelet Hänga Gubbe!" << endl << endl << endl;
     do
     {
-        cout <<"Välj ett alternativ: " << endl
+        cout << "Huvudmeny" << endl << endl
+        <<"Välj ett alternativ: " << endl
         << "1. Spela" << endl
         << "2. Highscorelista" << endl
         << "3. Instruktioner" << endl
@@ -41,7 +55,8 @@ void showMenu(vector<string>& words) {
                 cout <<"Highscorelista" << endl;
                 break;
             case 3:
-                cout <<"Instruktioner" << endl;
+                cout << endl << "Instruktioner" << endl << endl;
+                instructions();
                 break;
             case 4:
                 endGame(gameIsRunning);
