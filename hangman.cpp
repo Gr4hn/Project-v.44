@@ -15,6 +15,9 @@ class Player
 {
     //Kod för Player
 };
+void endGame(bool& gameIsRunning) {
+    gameIsRunning = false;
+}
 
 void showMenu(vector<string>& words) {
     int choice;
@@ -41,8 +44,7 @@ void showMenu(vector<string>& words) {
                 cout <<"Instruktioner" << endl;
                 break;
             case 4:
-                //endGame(gameIsRunning);
-                exit(0);
+                endGame(gameIsRunning);
                 break;
             default:
                 cout <<"Felaktigt val, försök igen!" << endl;
@@ -67,10 +69,6 @@ vector<string> loadWordsFromFile(const string& filename) {
         }
     }
     return words;
-}
-
-void endGame(bool& gameIsRunning) {
-    gameIsRunning = false;
 }
 
 int main ()
