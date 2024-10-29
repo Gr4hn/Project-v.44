@@ -51,6 +51,16 @@ public:
 
         return correct;
     }
+
+    bool endOfAttempts()
+    {
+        return incorrectGuesses.size() >= maxAttempts;
+    }
+
+    bool win()
+    {
+        return guessedWord == wordToGuess;
+    }
 };
 
 void instructions()
