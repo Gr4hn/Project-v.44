@@ -25,14 +25,24 @@ public:
     }
 
     char letters[29] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'å', 'ä', 'ö'};
-    string randomOrd;
+    string randomword;
+    char randomletter;
+    
  
+    void randomLetter() {
+        random_device rd;
+        mt19937 gen(rd());
+        uniform_int_distribution<> dis(0, 28); // 29 letters in the array
+        int index = dis(gen);
+        randomletter = letters[index];
+    }
+
     void randomWord(vector<string>& words) {
         random_device rd;
         mt19937 gen(rd());
         uniform_int_distribution<> dis(0, words.size() - 1);
         int index = dis(gen);
-        randomOrd = words.at(index);
+        randomword = words.at(index);
     }
 
     bool guess(char letter) {
