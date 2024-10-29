@@ -58,6 +58,20 @@ public:
         //rita ut gubbe, använd incorrectGuesses.size() för att veta hur många fel som gjorts
     }
 
+    void displayStatus() {
+        clearScreen();
+        drawHangman();
+        cout << "Word: ";
+        for (char c : guessedWord) {
+            cout << c << " ";
+        }
+        cout << endl << "Incorrect guesses: ";
+        for (char ch : incorrectGuesses) {
+            cout << ch << " ";
+        }
+        cout << endl << "Attempts remaining: " << maxAttempts - incorrectGuesses.size() << endl;
+    }
+
     bool guess(char letter) {
         letter = tolower(letter);
         bool correct = false;
@@ -69,6 +83,7 @@ public:
             }
         }
 
+        // kolla här om vår random letter för twist träffas, pusha in samma bokstav 2 ggr?
         if (!correct) {
             incorrectGuesses.push_back(letter);
         }
@@ -78,7 +93,7 @@ public:
 
     bool endOfAttempts()
     {
-        return incorrectGuesses.size() >= maxAttempts;
+        return incorrectGuesses.size() >= maxAttempts || guessedWord == wordToGuess;
     }
 
     bool win()
@@ -215,6 +230,17 @@ void gamePlay(vector<string>& words ) {
     Game game(randomWord);
 
     //cout << "Random word: " << randomWord << endl; // Debug
+
+    int attempts = 0;
+    while(!game.endOfAttempts()) {
+        game.displayStatus();
+        // game
+
+    }
+
+    if(game.win()) {
+        cout << "Spelet är över! Ordet var: " << randomWord << endl;
+    }
 }
 
 
