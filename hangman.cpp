@@ -1,3 +1,8 @@
+/*
+    Hangman Game by "Projektgrupp 1"
+    Authors: Anna Schwartz, Eric Grahn, Fredrik Storm
+*/
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -51,15 +56,6 @@ public:
 
     void drawHangman() {
         //rita ut gubbe, använd incorrectGuesses.size() för att veta hur många fel som gjorts
-    }
-
-    string randomWord(vector<string>& words) {
-        random_device rd;
-        mt19937 gen(rd());
-        uniform_int_distribution<> dis(0, words.size() - 1);
-        int index = dis(gen);
-        string randomword = words.at(index);
-        return randomword;
     }
 
     bool guess(char letter) {
@@ -151,13 +147,14 @@ void splashScreen() {
 
 void instructions()
 {
-    cout << "Dessa instruktioner & reglergäller för Hänga Gubbe" << endl << endl
+    clearScreen();
+    cout << "Dessa instruktioner & regler gäller för Hänga Gubbe" << endl << endl
     << "Spelet handlar om att gissa ett slumpmäsigt utvalt ord" << endl
     << "Ordet är dolt och anges med understräck som visar hur många bokstäver ordet innehåller" << endl
     << "Du har 10 gissningar innan gubben hängs, för varje felaktigt gissat bokstav förlorar du en gissning " << endl
     << "För varje bokstav du gissar rätt visas bokstaven i ordet" << endl
     << "Du kan gissa på hela ordet när som helst, men gissar du fel kommer omgången att avslutas." << endl
-    << "Under din spelomgång kommer ett slumpmässig bokstav att räkna som 2 gissningar. Du får inte veta vilken bokstav detat är." << endl << endl
+    << "Under din spelomgång kommer en slumpmässig bokstav att räknas som 2 gissningar. Du får inte veta vilken bokstav detta är." << endl << endl
     << "Lycka till!" << endl << endl;
 }
 
@@ -172,6 +169,7 @@ void endGame(bool& gameIsRunning) {
 void showMenu(vector<string>& words) {
     int choice;
     bool gameIsRunning = true;
+    clearScreen();
     cout <<"Välkommen till spelet Hänga Gubbe!" << endl << endl << endl;
     do
     {
@@ -187,6 +185,7 @@ void showMenu(vector<string>& words) {
         {
             case 1:
                 cout <<"Spela" << endl;
+                gamePlay(words);
                 break;
             case 2:
                 cout <<"Highscorelista" << endl;
@@ -206,10 +205,16 @@ void showMenu(vector<string>& words) {
     cout <<"Tack för att du spelade!" << endl;
 }
 
-
-
 void gamePlay(vector<string>& words ) {
-    Game game(game.randomWord(words));
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<> dis(0, words.size() - 1);
+    int index = dis(gen);
+    string randomWord = words.at(index);
+
+    Game game(randomWord);
+
+    //cout << "Random word: " << randomWord << endl; // Debug
 }
 
 
@@ -218,7 +223,6 @@ int main ()
 {
     splashScreen();
     sleep(2);
-    clearScreen();
     vector<string>words = loadWordsFromFile("words.txt");
     showMenu(words);
     
