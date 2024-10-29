@@ -25,7 +25,6 @@ public:
     }
 
     char letters[29] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'å', 'ä', 'ö'};
-    string randomword;
     char randomletter;
     
  
@@ -37,12 +36,13 @@ public:
         randomletter = letters[index];
     }
 
-    void randomWord(vector<string>& words) {
+    string randomWord(vector<string>& words) {
         random_device rd;
         mt19937 gen(rd());
         uniform_int_distribution<> dis(0, words.size() - 1);
         int index = dis(gen);
-        randomword = words.at(index);
+        string randomword = words.at(index);
+        return randomword;
     }
 
     bool guess(char letter) {
@@ -144,14 +144,14 @@ vector<string> loadWordsFromFile(const string& filename) {
     return words;
 }
 
-void gamePlay(vector<string>& words) {
-    //code
+void gamePlay(vector<string>& words ) {
+    Game game;
+    string randomword = game.randomWord(words);
 }
 
 int main ()
 {
     vector<string>words = loadWordsFromFile("words.txt");
-    //Game game;
     showMenu(words);
     
     return 0;
