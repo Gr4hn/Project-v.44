@@ -49,6 +49,10 @@ public:
         randomletter = letters[index];
     }
 
+    void drawHangman() {
+        //rita ut gubbe, använd incorrectGuesses.size() för att veta hur många fel som gjorts
+    }
+
     string randomWord(vector<string>& words) {
         random_device rd;
         mt19937 gen(rd());
