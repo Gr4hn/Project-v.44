@@ -6,6 +6,12 @@
 
 using namespace std;
 
+void instructions();
+void endGame(bool& gameIsRunning);
+void showMenu(vector<string>& words);
+void gamePlay(vector<string>& words);
+
+
 class Highscore
 {
     //Kod för Highscore
@@ -74,6 +80,32 @@ public:
     }
 };
 
+
+vector<string> loadWordsFromFile(const string& filename) {
+    vector<string> words;
+    ifstream file(filename);
+    if (!file) {
+        cerr << "Could not open the file " << filename << "\n";
+        return words;
+    }
+
+    string word;
+    while (getline(file, word)) {
+        if (!word.empty()) {
+            words.push_back(word);
+        }
+    }
+    return words;
+}
+
+
+
+void showHighscore (vector<string>& words) {
+    cout << "Highscore" << endl;
+}
+
+
+
 void instructions()
 {
     cout << "Dessa instruktioner & reglergäller för Hänga Gubbe" << endl << endl
@@ -86,9 +118,13 @@ void instructions()
     << "Lycka till!" << endl << endl;
 }
 
+
+
 void endGame(bool& gameIsRunning) {
     gameIsRunning = false;
 }
+
+
 
 void showMenu(vector<string>& words) {
     int choice;
@@ -127,27 +163,13 @@ void showMenu(vector<string>& words) {
     cout <<"Tack för att du spelade!" << endl;
 }
 
-vector<string> loadWordsFromFile(const string& filename) {
-    vector<string> words;
-    ifstream file(filename);
-    if (!file) {
-        cerr << "Could not open the file " << filename << "\n";
-        return words;
-    }
 
-    string word;
-    while (getline(file, word)) {
-        if (!word.empty()) {
-            words.push_back(word);
-        }
-    }
-    return words;
-}
 
 void gamePlay(vector<string>& words ) {
-    Game game;
-    string randomword = game.randomWord(words);
+    Game game(game.randomWord(words));
 }
+
+
 
 int main ()
 {
