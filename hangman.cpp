@@ -13,13 +13,21 @@ class Highscore
 
 class Player
 {
-    //Kod för Player
+    public:
+    string randomOrd;
+    void randomWord(vector<string>& words) {
+        random_device rd;
+        mt19937 gen(rd());
+        uniform_int_distribution<> dis(0, words.size() - 1);
+        int index = dis(gen);
+        randomOrd = words.at(index);
+    }
 };
 void endGame(bool& gameIsRunning) {
     gameIsRunning = false;
 }
 
-void showMenu(vector<string>& words) {
+void showMenu(vector<string>& words, Player player) {
     int choice;
     bool gameIsRunning = true;
     cout <<"Välkommen till spelet Hänga Gubbe!" << endl <<endl;
@@ -35,7 +43,8 @@ void showMenu(vector<string>& words) {
         switch(choice)
         {
             case 1:
-                cout <<"Spela" << endl;
+                //player.randomWord(words);
+                cout << player.randomOrd << endl;
                 break;
             case 2:
                 cout <<"Highscorelista" << endl;
@@ -73,8 +82,11 @@ vector<string> loadWordsFromFile(const string& filename) {
 
 int main ()
 {
+
     vector<string>words = loadWordsFromFile("words.txt");
-    showMenu(words);
+    Player player;
+    showMenu(words, player);
+    
     
     return 0;
 }
