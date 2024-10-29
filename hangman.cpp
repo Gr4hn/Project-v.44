@@ -24,6 +24,7 @@ public:
         guessedWord = std::string(word.size(), '_');
     }
 
+    char letters[29] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'å', 'ä', 'ö'};
     string randomOrd;
  
     void randomWord(vector<string>& words) {
