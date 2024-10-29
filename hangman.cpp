@@ -24,14 +24,14 @@ public:
         guessedWord = std::string(word.size(), '_');
     }
 
-    char letters[29] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'å', 'ä', 'ö'};
+    string randomword; vector<char> letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', char(229) /*å*/, char(228) /*ä*/, char(246) /*ö*/};
     char randomletter;
     
  
     void randomLetter() {
         random_device rd;
         mt19937 gen(rd());
-        uniform_int_distribution<> dis(0, 28); // 29 letters in the array
+        uniform_int_distribution<> dis(0, letters.size() - 1);
         int index = dis(gen);
         randomletter = letters[index];
     }
