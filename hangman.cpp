@@ -11,7 +11,7 @@ class Highscore
     //Kod för Highscore
 };
 
-class Player
+class Game
 {
 private:
     string wordToGuess;
@@ -19,10 +19,11 @@ private:
     vector<char> incorrectGuesses;
     int maxAttempts;
 
-    public:
-    Player (const string& word, int attempts) : wordToGuess(word), maxAttempts(attempts) {
-        guessedWord = string(word.size(), '_');
+public:
+    Game(const std::string& word, int maxAttempts = 10) : wordToGuess(word), maxAttempts(maxAttempts) {
+        guessedWord = std::string(word.size(), '_');
     }
+
     string randomOrd;
  
     void randomWord(vector<string>& words) {
@@ -68,7 +69,7 @@ void endGame(bool& gameIsRunning) {
     gameIsRunning = false;
 }
 
-void showMenu(vector<string>& words, Player player) {
+void showMenu(vector<string>& words) {
     int choice;
     bool gameIsRunning = true;
     cout <<"Välkommen till spelet Hänga Gubbe!" << endl << endl << endl;
@@ -124,11 +125,9 @@ vector<string> loadWordsFromFile(const string& filename) {
 
 int main ()
 {
-
     vector<string>words = loadWordsFromFile("words.txt");
-    Player player;
-    showMenu(words, player);
-    
+    //Game game;
+    showMenu(words);
     
     return 0;
 }
