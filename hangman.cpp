@@ -13,7 +13,34 @@ class Highscore
 
 class Player
 {
-    //Kod för Player
+private:
+    string wordToGuess;
+    string guessedWord;
+    vector<char> incorrectGuesses;
+    int maxAttempts;
+
+public:
+    Player (const string& word, int attempts) : wordToGuess(word), maxAttempts(attempts) {
+        guessedWord = string(word.size(), '_');
+    }
+
+    bool guess(char letter) {
+        letter = tolower(letter);
+        bool correct = false;
+
+        for (size_t i = 0; i < wordToGuess.size(); ++i) {
+            if (wordToGuess[i] == letter) {
+                guessedWord[i] = letter;
+                correct = true;
+            }
+        }
+
+        if (!correct) {
+            incorrectGuesses.push_back(letter);
+        }
+
+        return correct;
+    }
 };
 void endGame(bool& gameIsRunning) {
     gameIsRunning = false;
@@ -36,6 +63,7 @@ void showMenu(vector<string>& words) {
         {
             case 1:
                 cout <<"Spela" << endl;
+
                 break;
             case 2:
                 cout <<"Highscorelista" << endl;
