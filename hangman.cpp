@@ -11,6 +11,11 @@ class Highscore
     //Kod för Highscore
 };
 
+class Player
+{
+    //Kod för Player
+};
+
 int main ()
 {
     cout <<"Välkommen till spelet Hänga Gubbe!" << endl <<endl;
