@@ -241,8 +241,22 @@ void gamePlay(vector<string>& words) {
     int attempts = 0;
     while(!game.endOfAttempts()) {
         game.displayStatus();
-        // game
 
+        char guess;
+        cout << "Gissa en bokstav: ";
+        cin >> guess;
+
+        if(!game.guess(guess)) {
+            cout << "Fel gissning!" << endl;
+        } else {
+            cout << "Rätt gissning!" << endl;
+        }
+        attempts++;
+
+        if(game.win()) {
+            cout << "Grattis! Du vann! " << "Du gissade rätt ord: " << randomWord << endl;
+            break;
+        }
     }
 
     if(!game.win()) {
