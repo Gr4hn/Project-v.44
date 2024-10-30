@@ -35,13 +35,13 @@ class Game
 {
 private:
     string wordToGuess;
-    string guessedWord;
+    string guessedLetters;
     vector<char> incorrectGuesses;
     int maxAttempts;
 
 public:
     Game(const std::string& word, int maxAttempts = 10) : wordToGuess(word), maxAttempts(maxAttempts) {
-        guessedWord = std::string(word.size(), '_');
+        guessedLetters = std::string(word.size(), '_');
     }
 
     string randomword; vector<char> letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', char(229) /*å*/, char(228) /*ä*/, char(246) /*ö*/};
@@ -64,7 +64,7 @@ public:
         clearScreen();
         drawHangman();
         cout << "Ord: ";
-        for (char c : guessedWord) {
+        for (char c : guessedLetters) {
             cout << c << " ";
         }
         cout << endl << "Felgissningar: ";
@@ -80,7 +80,7 @@ public:
 
         for (size_t i = 0; i < wordToGuess.size(); ++i) {
             if (wordToGuess[i] == letter) {
-                guessedWord[i] = letter;
+                guessedLetters[i] = letter;
                 correct = true;
             }
         }
@@ -95,12 +95,12 @@ public:
 
     bool endOfAttempts()
     {
-        return incorrectGuesses.size() >= maxAttempts || guessedWord == wordToGuess;
+        return incorrectGuesses.size() >= maxAttempts || guessedLetters == wordToGuess;
     }
 
     bool win()
     {
-        return guessedWord == wordToGuess;
+        return guessedLetters == wordToGuess;
     }
 };
 
