@@ -9,6 +9,7 @@
 #include <random>
 #include <fstream>
 #include <locale>
+#include <algorithm>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -68,7 +69,11 @@ public:
     bool guess(char letter) {
         letter = tolower(letter);
         bool correct = false;
-
+        if(isLetterGuessed(letter))
+        {
+            cout <<"Du har redan gissat på bokstaven " << letter <<" försök igen!" << endl;
+            return false;
+        }
         for (size_t i = 0; i < wordToGuess.size(); ++i) {
             if (wordToGuess[i] == letter) {
                 guessedLetters[i] = letter;
@@ -92,6 +97,17 @@ public:
     bool win() const
     {
         return guessedLetters == wordToGuess;
+    }
+
+    bool isLetterGuessed(char letter) {
+        // Kontrollera om bokstaven finns i guessedLetters eller incorrectGuesses
+        if (find(guessedLetters.begin(), guessedLetters.end(), letter) != guessedLetters.end()) {
+            return true;
+        }
+        if (find(incorrectGuesses.begin(), incorrectGuesses.end(), letter) != incorrectGuesses.end()) {
+            return true;
+        }
+        return false;
     }
 };
 
