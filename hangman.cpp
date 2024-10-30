@@ -75,9 +75,9 @@ public:
         {
             cout <<"Du har redan gissat på bokstaven " << letter <<" försök igen!" << endl;
             #ifdef _WIN32
-            Sleep(3000);
+            Sleep(2000);
             #else
-            sleep(3000);
+            sleep(2000);
             #endif
             return false;
         }
@@ -270,16 +270,22 @@ void gamePlay(vector<string>& words, vector<string>& letters) {
         char guess;
         cout << "Gissa en bokstav: ";
         cin >> guess;
+        
 
         if(!game.guess(guess)) {
             cout << "Fel gissning!" << endl;
+            sleepForSeconds(2);
         } else {
             cout << "R\u00E4tt gissning!" << endl;
+            sleepForSeconds(2);
         }
         attempts++;
 
         if(game.win()) {
             cout << "Grattis! Du vann! " << "Du gissade r\u00E4tt ord: " << randomWord << endl;
+            cout << "Antal gissningar: " << attempts << endl;
+            cin.ignore();
+            cin.get();
             break;
         }
     }
