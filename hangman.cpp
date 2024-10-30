@@ -21,8 +21,10 @@ void instructions();
 void endGame(bool& gameIsRunning);
 void showMenu(vector<string>& words);
 void gamePlay(vector<string>& words);
+string Randomizer(vector<string>list);
 void splashScreen();
 void clearScreen();
+
 
 class Highscore
 {
@@ -228,12 +230,9 @@ void showMenu(vector<string>& words) {
     cout <<"Tack för att du spelade!" << endl;
 }
 
-void gamePlay(vector<string>& words ) {
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_int_distribution<> dis(0, words.size() - 1);
-    int index = dis(gen);
-    string randomWord = words.at(index);
+void gamePlay(vector<string>& words) {
+  
+    string randomWord = Randomizer(words);
 
     Game game(randomWord);
 
@@ -251,6 +250,13 @@ void gamePlay(vector<string>& words ) {
     }
 }
 
+string Randomizer( vector<string> list) {
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<> dis(0, list.size() - 1);
+    int index = dis(gen);
+    return list.at(index);
+}
 
 
 int main ()
