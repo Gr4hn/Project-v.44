@@ -8,6 +8,7 @@
 #include <vector>
 #include <random>
 #include <fstream>
+#include <locale>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -266,6 +267,7 @@ string Randomizer( vector<string> list) {
 
 int main ()
 {
+    setlocale(LC_ALL, "sv_SE.UTF-8");
     //splashScreen();
     //sleepForSeconds(2);
     vector<string>words = loadWordsFromFile("words.txt");
