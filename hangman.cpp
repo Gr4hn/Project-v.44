@@ -10,6 +10,7 @@
 #include <fstream>
 #include <locale>
 #include <algorithm>
+#include <cstdio>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -194,6 +195,9 @@ void instructions()
     << "Du kan gissa p\u00E5 hela ordet n\u00E4r som helst, men gissar du fel kommer omg\u00E5ngen att avslutas." << endl
     << "Under din spelomg\u00E5ng kommer en slumpm\u00E4ssig bokstav att r\u00E4knas som 2 gissningar. Du f\u00E5r inte veta vilken bokstav detta \u00E4r." << endl << endl
     << "Lycka till!" << endl << endl;
+    cout << "Tryck på valfri tangent f\u00F6r att forts\u00E4tta"  << endl;
+    cin.ignore();
+    cin.get();
 }
 
 
@@ -208,9 +212,10 @@ void showMenu(vector<string>& words, vector<string>& letters) {
     int choice;
     bool gameIsRunning = true;
     clearScreen();
-    cout <<"V\u00E4lkommen till spelet H\u00E4nga Gubbe!" << endl << endl << endl;
+   
     do
     {
+        clearScreen();
         cout << "Huvudmeny" << endl << endl
         <<"V\u00E4lj ett alternativ: " << endl
         << "1. Spela" << endl
@@ -296,8 +301,9 @@ string Randomizer( vector<string> list) {
 int main ()
 {
     setlocale(LC_ALL, "sv_SE.UTF-8");
-    //splashScreen();
-    //sleepForSeconds(2);
+    cout <<"V\u00E4lkommen till spelet H\u00E4nga Gubbe!" << endl << endl << endl;
+    splashScreen();
+    sleepForSeconds(3);
     vector<string>words = loadWordsFromFile("words.txt");
     vector<string>letters= {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "å", "ä", "ö"};
     showMenu(words, letters);
