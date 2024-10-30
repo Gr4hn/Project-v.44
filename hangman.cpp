@@ -63,15 +63,15 @@ public:
     void displayStatus() {
         clearScreen();
         drawHangman();
-        cout << "Word: ";
+        cout << "Ord: ";
         for (char c : guessedWord) {
             cout << c << " ";
         }
-        cout << endl << "Incorrect guesses: ";
+        cout << endl << "Felgissningar: ";
         for (char ch : incorrectGuesses) {
             cout << ch << " ";
         }
-        cout << endl << "Attempts remaining: " << maxAttempts - incorrectGuesses.size() << endl;
+        cout << endl << "Antal försök kvar: " << maxAttempts - incorrectGuesses.size() << endl;
     }
 
     bool guess(char letter) {
