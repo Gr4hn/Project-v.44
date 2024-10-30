@@ -61,7 +61,7 @@ public:
         for (char ch : incorrectGuesses) {
             cout << ch << " ";
         }
-        cout << endl << "Antal försök kvar: " << maxAttempts - incorrectGuesses.size() << endl;
+        cout << endl << "Antal f\u00F6rs\u00F6k kvar: " << maxAttempts - incorrectGuesses.size() << endl;
     }
 
     bool guess(char letter) {
@@ -163,13 +163,13 @@ void splashScreen() {
 void instructions()
 {
     clearScreen();
-    cout << "Dessa instruktioner & regler gäller för Hänga Gubbe" << endl << endl
-    << "Spelet handlar om att gissa ett slumpmäsigt utvalt ord" << endl
-    << "Ordet är dolt och anges med understräck som visar hur många bokstäver ordet innehåller" << endl
-    << "Du har 10 gissningar innan gubben hängs, för varje felaktigt gissat bokstav förlorar du en gissning " << endl
-    << "För varje bokstav du gissar rätt visas bokstaven i ordet" << endl
-    << "Du kan gissa på hela ordet när som helst, men gissar du fel kommer omgången att avslutas." << endl
-    << "Under din spelomgång kommer en slumpmässig bokstav att räknas som 2 gissningar. Du får inte veta vilken bokstav detta är." << endl << endl
+    cout << "Dessa instruktioner & regler g\u00E4ller f\u00F6r H\u00E4nga Gubbe" << endl << endl
+    << "Spelet handlar om att gissa ett slumpm\u00E4ssigt utvalt ord" << endl
+    << "Ordet \u00E4r dolt och anges med understr\u00E4ck som visar hur m\u00E5nga bokst\u00E4ver ordet inneh\u00E5ller" << endl
+    << "Du har 10 gissningar innan gubben h\u00E4ngs, f\u00F6r varje felaktigt gissat bokstav f\u00F6rlorar du en gissning " << endl
+    << "F\u00F6r varje bokstav du gissar r\u00E4tt visas bokstaven i ordet" << endl
+    << "Du kan gissa p\u00E5 hela ordet n\u00E4r som helst, men gissar du fel kommer omg\u00E5ngen att avslutas." << endl
+    << "Under din spelomg\u00E5ng kommer en slumpm\u00E4ssig bokstav att r\u00E4knas som 2 gissningar. Du f\u00E5r inte veta vilken bokstav detta \u00E4r." << endl << endl
     << "Lycka till!" << endl << endl;
 }
 
@@ -185,11 +185,11 @@ void showMenu(vector<string>& words, vector<string>& letters) {
     int choice;
     bool gameIsRunning = true;
     clearScreen();
-    cout <<"Välkommen till spelet Hänga Gubbe!" << endl << endl << endl;
+    cout <<"V\u00E4lkommen till spelet H\u00E4nga Gubbe!" << endl << endl << endl;
     do
     {
         cout << "Huvudmeny" << endl << endl
-        <<"Välj ett alternativ: " << endl
+        <<"V\u00E4lj ett alternativ: " << endl
         << "1. Spela" << endl
         << "2. Highscorelista" << endl
         << "3. Instruktioner" << endl
@@ -213,11 +213,11 @@ void showMenu(vector<string>& words, vector<string>& letters) {
                 endGame(gameIsRunning);
                 break;
             default:
-                cout <<"Felaktigt val, försök igen!" << endl;
+                cout <<"Felaktigt val, f\u00F6rs\u00F6k igen!" << endl;
                 break;
         }
     } while (gameIsRunning);
-    cout <<"Tack för att du spelade!" << endl;
+    cout <<"Tack f\u00F6r att du spelade!" << endl;
 }
 
 void gamePlay(vector<string>& words, vector<string>& letters) {
@@ -240,18 +240,18 @@ void gamePlay(vector<string>& words, vector<string>& letters) {
         if(!game.guess(guess)) {
             cout << "Fel gissning!" << endl;
         } else {
-            cout << "Rätt gissning!" << endl;
+            cout << "R\u00E4tt gissning!" << endl;
         }
         attempts++;
 
         if(game.win()) {
-            cout << "Grattis! Du vann! " << "Du gissade rätt ord: " << randomWord << endl;
+            cout << "Grattis! Du vann! " << "Du gissade r\u00E4tt ord: " << randomWord << endl;
             break;
         }
     }
 
     if(!game.win()) {
-        cout << "Spelet är över! Ordet var: " << randomWord << endl;
+        cout << "Spelet \u00E4r \u00F6ver! Ordet var: " << randomWord << endl;
     }
 }
 
