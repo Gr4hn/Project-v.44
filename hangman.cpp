@@ -292,6 +292,9 @@ void gamePlay(vector<string>& words, vector<string>& letters) {
 
     if(!game.win()) {
         cout << "Spelet \u00E4r \u00F6ver! Ordet var: " << randomWord << endl;
+        cout << "Tryck på valfri knapp f\u00F6r att forts\u00E4tta" << endl;
+        cin.ignore();
+        cin.get();
     }
 }
 
