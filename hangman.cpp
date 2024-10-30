@@ -46,11 +46,11 @@ public:
 
     string randomword; 
 
-    void drawHangman() {
+    void drawHangman() const {
         //rita ut gubbe, använd incorrectGuesses.size() för att veta hur många fel som gjorts
     }
 
-    void displayStatus() {
+    void displayStatus() const {
         clearScreen();
         drawHangman();
         cout << "Ord: ";
@@ -83,12 +83,12 @@ public:
         return correct;
     }
 
-    bool endOfAttempts()
+    bool endOfAttempts() const
     {
         return incorrectGuesses.size() >= maxAttempts || guessedLetters == wordToGuess;
     }
 
-    bool win()
+    bool win() const
     {
         return guessedLetters == wordToGuess;
     }
