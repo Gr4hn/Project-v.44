@@ -26,6 +26,7 @@ void gamePlay(vector<string>& words, vector<string>& letters);
 string Randomizer(vector<string>list);
 void splashScreen();
 void clearScreen();
+void sleepForSeconds(int seconds);
 
 
 class Highscore
@@ -72,6 +73,11 @@ public:
         if(isLetterGuessed(letter))
         {
             cout <<"Du har redan gissat på bokstaven " << letter <<" försök igen!" << endl;
+            #ifdef _WIN32
+            Sleep(3000);
+            #else
+            sleep(3000);
+            #endif
             return false;
         }
         for (size_t i = 0; i < wordToGuess.size(); ++i) {
@@ -235,6 +241,12 @@ void showMenu(vector<string>& words, vector<string>& letters) {
         }
     } while (gameIsRunning);
     cout <<"Tack f\u00F6r att du spelade!" << endl;
+    #ifdef _WIN32
+            Sleep(3000);
+            #else
+            sleep(3000);
+            #endif
+            
 }
 
 void gamePlay(vector<string>& words, vector<string>& letters) {
