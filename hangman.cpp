@@ -19,8 +19,8 @@ using namespace std;
 
 void instructions();
 void endGame(bool& gameIsRunning);
-void showMenu(vector<string>& words);
-void gamePlay(vector<string>& words);
+void showMenu(vector<string>& words, vector<string>& letters);
+void gamePlay(vector<string>& words, vector<string>& letters);
 string Randomizer(vector<string>list);
 void splashScreen();
 void clearScreen();
@@ -44,17 +44,7 @@ public:
         guessedWord = std::string(word.size(), '_');
     }
 
-    string randomword; vector<char> letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', char(229) /*å*/, char(228) /*ä*/, char(246) /*ö*/};
-    char randomletter;
-    
- 
-    void randomLetter() {
-        random_device rd;
-        mt19937 gen(rd());
-        uniform_int_distribution<> dis(0, letters.size() - 1);
-        int index = dis(gen);
-        randomletter = letters[index];
-    }
+    string randomword; 
 
     void drawHangman() {
         //rita ut gubbe, använd incorrectGuesses.size() för att veta hur många fel som gjorts
@@ -191,7 +181,7 @@ void endGame(bool& gameIsRunning) {
 
 
 
-void showMenu(vector<string>& words) {
+void showMenu(vector<string>& words, vector<string>& letters) {
     int choice;
     bool gameIsRunning = true;
     clearScreen();
@@ -210,7 +200,7 @@ void showMenu(vector<string>& words) {
         {
             case 1:
                 cout <<"Spela" << endl;
-                gamePlay(words);
+                gamePlay(words, letters);
                 break;
             case 2:
                 cout <<"Highscorelista" << endl;
@@ -230,14 +220,15 @@ void showMenu(vector<string>& words) {
     cout <<"Tack för att du spelade!" << endl;
 }
 
-void gamePlay(vector<string>& words) {
+void gamePlay(vector<string>& words, vector<string>& letters) {
   
     string randomWord = Randomizer(words);
+    string randomLetter = Randomizer(letters);
 
     Game game(randomWord);
 
-    //cout << "Random word: " << randomWord << endl; // Debug
-
+    cout << "Random word: " << randomWord << endl; // Debug
+    cout << "Random letter: " << randomLetter << endl; // Debug
     int attempts = 0;
     while(!game.endOfAttempts()) {
         game.displayStatus();
@@ -278,7 +269,8 @@ int main ()
     //splashScreen();
     //sleepForSeconds(2);
     vector<string>words = loadWordsFromFile("words.txt");
-    showMenu(words);
+    vector<string>letters= {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "å", "ä", "ö"};
+    showMenu(words, letters);
     
     return 0;
 }
