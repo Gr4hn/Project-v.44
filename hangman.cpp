@@ -256,7 +256,7 @@ void gamePlay(vector<string>& words ) {
 int main ()
 {
     //splashScreen();
-    //sleep(2);
+    //sleepForSeconds(2);
     vector<string>words = loadWordsFromFile("words.txt");
     showMenu(words);
     
