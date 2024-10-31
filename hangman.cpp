@@ -38,6 +38,7 @@ private:
     int attempts;
 
 public:
+// skapa konstruktor för att kunna skicka in attempts och namn
 // fixa de här, de ska hantera flera namn
     optional<string> load(const string& filename) {
       ifstream inputFile(filename);
