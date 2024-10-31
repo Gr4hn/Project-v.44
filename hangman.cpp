@@ -151,6 +151,7 @@ public:
                 cout << "Du träffade vår mystiska bokstav och är nu än mer närmare döden!\n";
                 incorrectGuesses.push_back(letter);
                 incorrectGuesses.push_back(letter); // Räknas som dubbla felgissningar
+                //hasGuessedString = true;
                 return false;
             }
 
@@ -294,7 +295,7 @@ void endRound (bool won) {
     }
 }
 
-void showMenu(vector<string>& words, vector<string>& letters, string& guessString) {
+void showMenu(vector<string>& words, string& guessString) {
     int choice;
     bool gameIsRunning = true;
     Highscore highscore;
@@ -314,7 +315,7 @@ void showMenu(vector<string>& words, vector<string>& letters, string& guessStrin
         switch(choice)
         {
             case 1:
-                gamePlay(words, letters, guessString);
+                gamePlay(words, guessString);
                 break;
             case 2:
                 highscore.display();
@@ -335,10 +336,9 @@ void showMenu(vector<string>& words, vector<string>& letters, string& guessStrin
     sleepForSeconds(3);
 }
 
-void gamePlay(vector<string>& words, vector<string>& letters, string& guessString) {
+void gamePlay(vector<string>& words, string& guessString) {
 
     string randomWord = Randomizer(words);
-    string randomLetter = Randomizer(letters);
 
     Game game(randomWord);
 
@@ -355,8 +355,8 @@ void gamePlay(vector<string>& words, vector<string>& letters, string& guessStrin
 
         if(!game.guess(guessString[0], guessString) || game.hasGuessedString) { // Behövs guessString här egentligen? Det är ju bara en bokstav som ska gissas och om det är en string ska vi hoppa direkt till förkorat eller vunnit?
             if (!game.hasGuessedString) {
-            cout << "Fel gissning!" << endl;
-            sleepForSeconds(2);
+                cout << "Fel gissning!" << endl;
+                sleepForSeconds(2);
             }
         } else {
             if (!game.hasGuessedString) {
@@ -402,9 +402,8 @@ int main ()
     splashScreen();
     sleepForSeconds(3);
     vector<string>words = loadWordsFromFile("words.txt");
-    vector<string>letters= {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "å", "ä", "ö"};
     string guessString;
-    showMenu(words, letters, guessString);
+    showMenu(words, guessString);
     
     return 0;
 }
