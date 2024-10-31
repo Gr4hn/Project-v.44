@@ -87,18 +87,17 @@ class Game
 {
 private:
     string wordToGuess;
+    string guessedLetters;
     string guessString;
+    bool hasGuessedString = false;
     vector<char> incorrectGuesses;
     int maxAttempts;
-
-public:
-    bool hasGuessedString = false;
-    string guessedLetters;
-
+    char mysteryLetter;
 
 public:
     Game(const string& word, int maxAttempts = 10) : wordToGuess(word), maxAttempts(maxAttempts) {
         guessedLetters = string(word.size(), '_');
+        mysteryLetter = selectMysteryLetter();
     }
 
     string randomword; 
@@ -121,7 +120,7 @@ public:
         cout << endl << "Antal f\u00F6rs\u00F6k kvar: " << maxAttempts - incorrectGuesses.size() << endl;
     }
 
-    char mysteryLetter() {
+    char selectMysteryLetter() {
         string alphabet = "abcdefghijklmnopqrstuvwxyzåäö";
         vector<char> possibleLetters;
 
@@ -137,6 +136,15 @@ public:
         string lowerInput = input;
         transform(lowerInput.begin(), lowerInput.end(), lowerInput.begin(), ::tolower);
         letter = tolower(letter);
+
+        cout << "Mystisk bokstav: " << mysteryLetter << endl; // Debug
+        if (letter == mysteryLetter) {
+            cout << "Du träffade vår mystiska bokstav och är nu än mer närmare döden!\n";
+            incorrectGuesses.push_back(letter);
+            incorrectGuesses.push_back(letter); // Räknas som dubbla felgissningar
+            return false;
+        }
+
         if (lowerInput.length() == 1) {
         bool correct = false;
         if(isLetterGuessed(letter))
@@ -150,15 +158,6 @@ public:
             return false;
         }
 
-        char c = mysteryLetter();
-        //cout << "Mystisk bokstav: " << c << endl; // Debug
-        if (letter == c) {
-            cout << "Du träffade vår mystiska bokstav och är nu än mer närmare döden!\n";
-            incorrectGuesses.push_back(letter);
-            incorrectGuesses.push_back(letter); // Räknas som dubbla felgissningar
-            return false;
-        }
-
         for (size_t i = 0; i < wordToGuess.size(); ++i) {
             if (wordToGuess[i] == letter) {
                 guessedLetters[i] = letter;
@@ -169,10 +168,7 @@ public:
         if (!correct) {
             incorrectGuesses.push_back(letter);
         }
-
-            
         return correct;
-
             }
         else {
             hasGuessedString = true;
@@ -185,14 +181,15 @@ public:
                 return true;
             }
             else {
-                cout << "Fel gissning! Du har förlorat spelet. Ordet var: " << wordToGuess << endl
-                << "Tryck på valfri tangent för att fortsätta." << endl;
-                cin.ignore();
-                cin.get();
+                cout << "Fel gissning! Du har förlorat spelet." << endl;
+                #ifdef _WIN32
+                    Sleep(3000);
+                #else
+                    sleep(3);
+                #endif
                 return false;
             }
         }
-
     }
 
 
@@ -313,7 +310,7 @@ void showMenu(vector<string>& words, vector<string>& letters, string& guessStrin
     bool gameIsRunning = true;
     Highscore highscore;
     clearScreen();
-   
+
     do
     {
         clearScreen();
@@ -362,7 +359,7 @@ void gamePlay(vector<string>& words, vector<string>& letters, string& guessStrin
     Game game(randomWord);
 
     cout << "Random word: " << randomWord << endl; // Debug
-    cout << "Random letter: " << (game.mysteryLetter()) << endl; // Debug
+    //cout << "Random letter: " << (game.mysteryLetter()) << endl; // Debug
     sleepForSeconds(1);
 
     int attempts = 0;
@@ -375,11 +372,11 @@ void gamePlay(vector<string>& words, vector<string>& letters, string& guessStrin
         if(!game.guess(guessString[0], guessString) || game.hasGuessedString) { // Behövs guessString här egentligen? Det är ju bara en bokstav som ska gissas och om det är en string ska vi hoppa direkt till förkorat eller vunnit?
             if (!game.hasGuessedString) {
             cout << "Fel gissning!" << endl;
-                #ifdef _WIN32
-                Sleep(2000);
-                #else
-                sleep(2);
-                #endif
+            #ifdef _WIN32
+            Sleep(2000);
+            #else
+            sleep(2);
+            #endif
             }
         } else {
             if (!game.hasGuessedString) {
@@ -396,7 +393,7 @@ void gamePlay(vector<string>& words, vector<string>& letters, string& guessStrin
 
         if(game.win()) { // Den här körs när man har gissat rätt bokstäver.
             game.win();
-            cout << "Grattis 2! Du vann! " << "Du gissade r\u00E4tt ord: " << randomWord << endl
+            cout << "Grattis! Du vann! " << "Du gissade r\u00E4tt ord: " << randomWord << endl
             << "Antal f\u00F6rs\u00F6k: " << attempts << endl
             << "Tryck p\u00E5 valfri tangent f\u00F6r att forts\u00E4tta" << endl;
             cin.ignore();
