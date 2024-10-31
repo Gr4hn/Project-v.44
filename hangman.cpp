@@ -89,12 +89,12 @@ private:
     string wordToGuess;
     string guessedLetters;
     string guessString;
-    bool hasGuessedString = false;
     vector<char> incorrectGuesses;
     int maxAttempts;
     char mysteryLetter;
 
 public:
+    bool hasGuessedString = false;
     Game(const string& word, int maxAttempts = 10) : wordToGuess(word), maxAttempts(maxAttempts) {
         guessedLetters = string(word.size(), '_');
         mysteryLetter = selectMysteryLetter();
