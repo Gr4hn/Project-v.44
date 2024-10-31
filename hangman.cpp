@@ -22,8 +22,8 @@ using namespace std;
 
 void instructions();
 void endGame(bool& gameIsRunning);
-void showMenu(vector<string>& words, vector<string>& letters);
-void gamePlay(vector<string>& words, vector<string>& letters);
+void showMenu(vector<string>& words, vector<string>& letters, string& guessString);
+void gamePlay(vector<string>& words, vector<string>& letters, string& guessString);
 string Randomizer(vector<string>list);
 void splashScreen();
 void clearScreen();
@@ -40,6 +40,8 @@ class Game
 private:
     string wordToGuess;
     string guessedLetters;
+    string guessString;
+    bool hasGuessedString = false;
     vector<char> incorrectGuesses;
     int maxAttempts;
 
@@ -68,37 +70,68 @@ public:
         cout << endl << "Antal f\u00F6rs\u00F6k kvar: " << maxAttempts - incorrectGuesses.size() << endl;
     }
 
-    bool guess(char letter) {
+    bool guess(char letter, string input) {
+        string lowerInput = input;
+        transform(lowerInput.begin(), lowerInput.end(), lowerInput.begin(), ::tolower);
         letter = tolower(letter);
-        bool correct = false;
-        if(isLetterGuessed(letter))
-        {
-            cout <<"Du har redan gissat på bokstaven " << letter <<" försök igen!" << endl;
-            #ifdef _WIN32
-            Sleep(3000);
-            #else
-            sleep(3000);
-            #endif
-            return false;
-        }
-        for (size_t i = 0; i < wordToGuess.size(); ++i) {
-            if (wordToGuess[i] == letter) {
-                guessedLetters[i] = letter;
-                correct = true;
+        if (lowerInput.length() == 1) {
+                bool correct = false;
+                if(isLetterGuessed(letter))
+                {
+                    cout <<"Du har redan gissat på bokstaven " << letter <<" försök igen!" << endl;
+                    #ifdef _WIN32
+                    Sleep(3000);
+                    #else
+                    sleep(3000);
+                    #endif
+                    return false;
+                }
+                for (size_t i = 0; i < wordToGuess.size(); ++i) {
+                    if (wordToGuess[i] == letter) {
+                        guessedLetters[i] = letter;
+                        correct = true;
+                    }
+                }
+
+                // kolla här om vår random letter för twist träffas, pusha in samma bokstav 2 ggr?
+                if (!correct) {
+                    incorrectGuesses.push_back(letter);
+                }
+
+            
+                return correct;
+
+            }
+        else {
+            hasGuessedString = true;
+            if (lowerInput == wordToGuess) {
+                //guessedLetters = wordToGuess;
+                cout << "Grattis! Du vann! " << "Du gissade r\u00E4tt ord: " << wordToGuess << endl;
+               #ifdef _WIN32
+                    Sleep(3000);
+                    #else
+                    sleep(3000);
+                    #endif
+                return true;
+            }
+            else {
+                
+                cout << "Fel gissning! Du har förlorat spelet." << endl;
+                #ifdef _WIN32
+                    Sleep(3000);
+                    #else
+                    sleep(3000);
+                    #endif
+                return false;
             }
         }
 
-        // kolla här om vår random letter för twist träffas, pusha in samma bokstav 2 ggr?
-        if (!correct) {
-            incorrectGuesses.push_back(letter);
-        }
-
-        return correct;
     }
+
 
     bool endOfAttempts() const
     {
-        return incorrectGuesses.size() >= maxAttempts || guessedLetters == wordToGuess;
+        return incorrectGuesses.size() >= maxAttempts || guessedLetters == wordToGuess || guessString == wordToGuess || hasGuessedString == true;
     }
 
     bool win() const
@@ -206,9 +239,15 @@ void endGame(bool& gameIsRunning) {
     gameIsRunning = false;
 }
 
+void endRound (bool won) {
+    if (won) {
+        cout << "Du vann!" << endl;
+    } else {
+        cout << "Du f\u00F6rlorade!" << endl;
+    }
+}
 
-
-void showMenu(vector<string>& words, vector<string>& letters) {
+void showMenu(vector<string>& words, vector<string>& letters, string& guessString) {
     int choice;
     bool gameIsRunning = true;
     clearScreen();
@@ -228,7 +267,7 @@ void showMenu(vector<string>& words, vector<string>& letters) {
         {
             case 1:
                 cout <<"Spela" << endl;
-                gamePlay(words, letters);
+                gamePlay(words, letters, guessString);
                 break;
             case 2:
                 cout <<"Highscorelista" << endl;
@@ -254,10 +293,15 @@ void showMenu(vector<string>& words, vector<string>& letters) {
             
 }
 
-void gamePlay(vector<string>& words, vector<string>& letters) {
+void gamePlay(vector<string>& words, vector<string>& letters, string& guessString) {
   
     string randomWord = Randomizer(words);
     string randomLetter = Randomizer(letters);
+    #ifdef _WIN32
+            Sleep(2000);
+            #else
+            sleep(2000);
+            #endif
 
     Game game(randomWord);
 
@@ -267,25 +311,41 @@ void gamePlay(vector<string>& words, vector<string>& letters) {
     while(!game.endOfAttempts()) {
         game.displayStatus();
 
-        char guess;
-        cout << "Gissa en bokstav: ";
-        cin >> guess;
+        cout << "Gissa en bokstav eller ord: ";
+        cin >> guessString;
 
-        if(!game.guess(guess)) {
+        if(!game.guess(guessString[0], guessString)) {
+            
             cout << "Fel gissning!" << endl;
+            #ifdef _WIN32
+            Sleep(2000);
+            #else
+            sleep(2000);
+            #endif
         } else {
             cout << "R\u00E4tt gissning!" << endl;
+            #ifdef _WIN32
+            Sleep(2000);
+            #else
+            sleep(2000);
+            #endif
         }
         attempts++;
+        
 
         if(game.win()) {
+            game.win();
             cout << "Grattis! Du vann! " << "Du gissade r\u00E4tt ord: " << randomWord << endl;
+            cin.ignore();
+            cin.get();
             break;
         }
     }
 
     if(!game.win()) {
         cout << "Spelet \u00E4r \u00F6ver! Ordet var: " << randomWord << endl;
+        cin.ignore();
+        cin.get();
     }
 }
 
@@ -306,7 +366,8 @@ int main ()
     sleepForSeconds(3);
     vector<string>words = loadWordsFromFile("words.txt");
     vector<string>letters= {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "å", "ä", "ö"};
-    showMenu(words, letters);
+    string guessString;
+    showMenu(words, letters, guessString);
     
     return 0;
 }
