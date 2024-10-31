@@ -98,7 +98,7 @@ public:
     }
 
     char mysteryLetter() {
-        string alphabet = "abcdefghijklmnopqrstuvwxyz";
+        string alphabet = "abcdefghijklmnopqrstuvwxyzåäö";
         vector<char> possibleLetters;
 
         for (char c : alphabet) {
