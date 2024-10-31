@@ -62,6 +62,20 @@ public:
     bool isNewHighScore (int newAttempts) const {
         return attempts > newAttempts;
     }
+
+    void display() const {
+        clearScreen();
+        cout << " _   _ _       _       ____" << endl;
+        cout << "| | | (_) __ _| |__   / ___|  ___ ___  _ __ ___" << endl;
+        cout << "| |_| | |/ _` | '_ \\  \\___ \\ / __/ _ \\| '__/ _ \\" << endl;
+        cout << "|  _  | | (_| | | | |  ___) | (_| (_) | | |  __/" << endl;
+        cout << "|_| |_|_|\\__, |_| |_| |____/ \\___\\___/|_|  \\___|" << endl;
+        cout << "         |___/" << endl;
+        cout << endl;
+        cout << "1. " << name << " with " << attempts << " attempts." << endl;
+        cin.ignore();
+        cin.get();
+    }
 };
 
 class Game
@@ -187,12 +201,6 @@ vector<string> loadWordsFromFile(const string& filename) {
     return words;
 }
 
-
-
-void showHighscore (vector<string>& words) {
-    cout << "Highscore" << endl;
-}
-
 void clearScreen() {
 #ifdef _WIN32
     // Windows-specific code
@@ -262,6 +270,7 @@ void endGame(bool& gameIsRunning) {
 void showMenu(vector<string>& words, vector<string>& letters) {
     int choice;
     bool gameIsRunning = true;
+    Highscore highscore;
     clearScreen();
    
     do
@@ -282,7 +291,7 @@ void showMenu(vector<string>& words, vector<string>& letters) {
                 gamePlay(words, letters);
                 break;
             case 2:
-                cout <<"Highscorelista" << endl;
+                highscore.display();
                 break;
             case 3:
                 cout << endl << "Instruktioner" << endl << endl;
