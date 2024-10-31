@@ -115,6 +115,7 @@ public:
             cout << endl;
         }
         if (error == 1) {
+            cout << endl;
             cout << "   |" << endl;
             cout << "   |" << endl;
             cout << "   |" << endl;
