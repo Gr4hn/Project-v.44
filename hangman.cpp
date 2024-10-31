@@ -498,7 +498,7 @@ int main ()
     setlocale(LC_ALL, "sv_SE.UTF-8");
     cout <<"V\u00E4lkommen till spelet H\u00E4nga Gubbe!" << endl << endl << endl;
     splashScreen();
-    //sleepForSeconds(3);
+    sleepForSeconds(3);
     vector<string>words = loadWordsFromFile("words.txt");
     string guessString;
     showMenu(words, guessString);
