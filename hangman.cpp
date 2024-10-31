@@ -10,6 +10,7 @@
 #include <fstream>
 #include <locale>
 #include <optional>
+#include <cstdlib>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -96,9 +97,31 @@ public:
         cout << endl << "Antal f\u00F6rs\u00F6k kvar: " << maxAttempts - incorrectGuesses.size() << endl;
     }
 
+    char mysteryLetter() {
+        string alphabet = "abcdefghijklmnopqrstuvwxyz";
+        vector<char> possibleLetters;
+
+        for (char c : alphabet) {
+            if (wordToGuess.find(c) == string::npos) {
+                possibleLetters.push_back(c);
+            }
+        }
+        return possibleLetters[rand() % possibleLetters.size()];
+    }
+
     bool guess(char letter) {
         letter = tolower(letter);
         bool correct = false;
+
+        char c = mysteryLetter();
+        //cout << "Mystisk bokstav: " << c << endl; // Debug
+        if (letter == c) {
+            cout << "Du träffade vår mystiska bokstav och är nu än mer närmare döden!\n";
+            incorrectGuesses.push_back(letter);
+            incorrectGuesses.push_back(letter); // Räknas som dubbla felgissningar
+            return false;
+        }
+
         if(isLetterGuessed(letter))
         {
             cout <<"Du har redan gissat på bokstaven " << letter <<" försök igen!" << endl;
@@ -116,7 +139,6 @@ public:
             }
         }
 
-        // kolla här om vår random letter för twist träffas, pusha in samma bokstav 2 ggr?
         if (!correct) {
             incorrectGuesses.push_back(letter);
         }
@@ -290,7 +312,9 @@ void gamePlay(vector<string>& words, vector<string>& letters) {
     Game game(randomWord);
 
     cout << "Random word: " << randomWord << endl; // Debug
-    cout << "Random letter: " << randomLetter << endl; // Debug
+    //cout << "Random letter: " << (game.mysteryLetter()) << endl; // Debug
+    //sleepForSeconds(1);
+
     int attempts = 0;
     while(!game.endOfAttempts()) {
         game.displayStatus();
