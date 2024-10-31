@@ -113,15 +113,6 @@ public:
         letter = tolower(letter);
         bool correct = false;
 
-        char c = mysteryLetter();
-        //cout << "Mystisk bokstav: " << c << endl; // Debug
-        if (letter == c) {
-            cout << "Du träffade vår mystiska bokstav och är nu än mer närmare döden!\n";
-            incorrectGuesses.push_back(letter);
-            incorrectGuesses.push_back(letter); // Räknas som dubbla felgissningar
-            return false;
-        }
-
         if(isLetterGuessed(letter))
         {
             cout <<"Du har redan gissat på bokstaven " << letter <<" försök igen!" << endl;
@@ -132,6 +123,16 @@ public:
             #endif
             return false;
         }
+
+        char c = mysteryLetter();
+        //cout << "Mystisk bokstav: " << c << endl; // Debug
+        if (letter == c) {
+            cout << "Du träffade vår mystiska bokstav och är nu än mer närmare döden!\n";
+            incorrectGuesses.push_back(letter);
+            incorrectGuesses.push_back(letter); // Räknas som dubbla felgissningar
+            return false;
+        }
+
         for (size_t i = 0; i < wordToGuess.size(); ++i) {
             if (wordToGuess[i] == letter) {
                 guessedLetters[i] = letter;
