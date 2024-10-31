@@ -228,7 +228,10 @@ public:
                 possibleLetters.push_back(c);
             }
         }
-        return possibleLetters[rand() % possibleLetters.size()];
+        random_device rd;
+        mt19937 gen(rd());
+        uniform_int_distribution<> dis(0, possibleLetters.size() - 1);
+        return possibleLetters[dis(gen)];
     }
 
     bool guess(char letter, string input) {
@@ -247,7 +250,7 @@ public:
 
             cout << "Mystisk bokstav: " << mysteryLetter << endl; // Debug
             if (letter == mysteryLetter) {
-                //cout << "Du träffade vår mystiska bokstav och är nu än mer närmare döden!\n"; // Debug
+                cout << "Du träffade vår mystiska bokstav och är nu än mer närmare döden!\n"; // Debug
                 incorrectGuesses.push_back(letter);
                 incorrectGuesses.push_back(letter); // Räknas som dubbla felgissningar
                 return false;
@@ -368,6 +371,11 @@ void splashScreen() {
 void instructions()
 {
     clearScreen();
+    cout << " ___           _              _    _   _" << endl;
+    cout << "|_ _|_ __  ___| |_ _ __ _   _| | _| |_(_) ___  _ __   ___ _ __" << endl;
+    cout << " | || '_ \\/ __| __| '__| | | | |/ / __| |/ _ \\| '_ \\ / _ \\ '__|" << endl;
+    cout << " | || | | \\__ \\ |_| |  | |_| |   <| |_| | (_) | | | |  __/ |   " << endl;
+    cout << "|___|_| |_|___/\\__|_|   \\__,_|_|\\_\\\\__|_|\\___/|_| |_|\\___|_|" << endl << endl;
     cout << "Dessa instruktioner & regler g\u00E4ller f\u00F6r H\u00E4nga Gubbe" << endl << endl
     << "Spelet handlar om att gissa ett slumpm\u00E4ssigt utvalt ord" << endl
     << "Ordet \u00E4r dolt och anges med understr\u00E4ck som visar hur m\u00E5nga bokst\u00E4ver ordet inneh\u00E5ller" << endl
