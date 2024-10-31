@@ -29,7 +29,6 @@ void splashScreen();
 void clearScreen();
 void sleepForSeconds(int seconds);
 
-
 class Highscore
 {
 private:
@@ -37,7 +36,7 @@ private:
     int attempts;
 
 public:
-// skapa konstruktor för att kunna skicka in attempts och namn
+    Highscore() : name("Yo Mama"), attempts(10) {} //skapa temporära default värden
 // fixa de här, de ska hantera flera namn
     optional<string> load(const string& filename) {
       ifstream inputFile(filename);
@@ -61,6 +60,11 @@ public:
 
     bool isNewHighScore (int newAttempts) const {
         return attempts > newAttempts;
+    }
+
+    void update (const string& newName, int newAttempts){
+        name = newName;
+        attempts = newAttempts;
     }
 
     void display() const {
@@ -131,9 +135,9 @@ public:
         {
             cout <<"Du har redan gissat på bokstaven " << letter <<" försök igen!" << endl;
             #ifdef _WIN32
-            Sleep(2000);
+                Sleep(2000);
             #else
-            sleep(2000);
+                sleep(2);
             #endif
             return false;
         }
@@ -307,15 +311,15 @@ void showMenu(vector<string>& words, vector<string>& letters) {
     } while (gameIsRunning);
     cout <<"Tack f\u00F6r att du spelade!" << endl;
     #ifdef _WIN32
-            Sleep(3000);
-            #else
-            sleep(3000);
-            #endif
+        Sleep(3000);
+    #else
+        sleep(3);
+    #endif
             
 }
 
 void gamePlay(vector<string>& words, vector<string>& letters) {
-  
+    const string filename = "highscore.txt";
     string randomWord = Randomizer(words);
     string randomLetter = Randomizer(letters);
 
