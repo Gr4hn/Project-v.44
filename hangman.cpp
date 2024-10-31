@@ -178,7 +178,7 @@ public:
                #ifdef _WIN32
                     Sleep(3000);
                     #else
-                    sleep(3000);
+                    sleep(3);
                     #endif
                 return true;
             }
@@ -188,7 +188,7 @@ public:
                 #ifdef _WIN32
                     Sleep(3000);
                     #else
-                    sleep(3000);
+                    sleep(3);
                     #endif
                 return false;
             }
@@ -369,8 +369,8 @@ void gamePlay(vector<string>& words, vector<string>& letters, string& guessStrin
     Game game(randomWord);
 
     cout << "Random word: " << randomWord << endl; // Debug
-    //cout << "Random letter: " << (game.mysteryLetter()) << endl; // Debug
-    //sleepForSeconds(1);
+    cout << "Random letter: " << (game.mysteryLetter()) << endl; // Debug
+    sleepForSeconds(1);
 
     int attempts = 0;
     while(!game.endOfAttempts()) {
