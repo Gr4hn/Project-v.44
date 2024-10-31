@@ -11,6 +11,7 @@
 #include <locale>
 #include <algorithm>
 #include <cstdio>
+#include <optional>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -32,7 +33,31 @@ void sleepForSeconds(int seconds);
 
 class Highscore
 {
-    //Kod för Highscore
+private:
+    string name;
+    int attempts;
+
+public:
+// fixa de här, de ska hantera flera namn
+    optional<string> load(const string& filename) {
+      ifstream inputFile(filename);
+      if (inputFile) {
+        inputFile >> name >> attempts;
+        return nullopt;
+      } else {
+        return "Failed to open file for reading.";
+      }
+    }
+
+    optional<string> save (const string& filename) const {
+        ofstream inputFile(filename);
+        if (inputFile) {
+            inputFile << name << " " << attempts << endl;
+            return nullopt;
+        } else {
+            return "Failed to open file for writing.";
+        }
+    }
 };
 
 class Game
