@@ -72,8 +72,8 @@ private:
     int maxAttempts;
 
 public:
-    Game(const std::string& word, int maxAttempts = 10) : wordToGuess(word), maxAttempts(maxAttempts) {
-        guessedLetters = std::string(word.size(), '_');
+    Game(const string& word, int maxAttempts = 10) : wordToGuess(word), maxAttempts(maxAttempts) {
+        guessedLetters = string(word.size(), '_');
     }
 
     string randomword; 
@@ -176,7 +176,7 @@ void clearScreen() {
     system("cls");
 #else
     // Unix-like system-specific code
-    std::cout << "\033[2J\033[1;1H";
+    cout << "\033[2J\033[1;1H";
 #endif
 }
 
