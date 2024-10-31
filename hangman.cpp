@@ -9,8 +9,6 @@
 #include <random>
 #include <fstream>
 #include <locale>
-#include <algorithm>
-#include <cstdio>
 #include <optional>
 
 #ifdef _WIN32
