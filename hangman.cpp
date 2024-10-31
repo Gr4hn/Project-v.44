@@ -329,7 +329,6 @@ void showMenu(vector<string>& words, vector<string>& letters, string& guessStrin
         switch(choice)
         {
             case 1:
-                cout <<"Spela" << endl;
                 gamePlay(words, letters, guessString);
                 break;
             case 2:
@@ -360,11 +359,6 @@ void gamePlay(vector<string>& words, vector<string>& letters, string& guessStrin
 
     string randomWord = Randomizer(words);
     string randomLetter = Randomizer(letters);
-    #ifdef _WIN32
-            Sleep(2000);
-            #else
-            sleep(2);
-            #endif
 
     Game game(randomWord);
 
