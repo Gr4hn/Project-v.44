@@ -138,35 +138,35 @@ public:
         letter = tolower(letter);
 
         if (lowerInput.length() == 1) {
-        bool correct = false;
-        if(isLetterGuessed(letter))
-        {
-            cout <<"Du har redan gissat på bokstaven " << letter <<" försök igen!" << endl;
-            sleepForSeconds(2);
-            return false;
-        }
-
-        cout << "Mystisk bokstav: " << mysteryLetter << endl; // Debug
-        if (letter == mysteryLetter) {
-            cout << "Du träffade vår mystiska bokstav och är nu än mer närmare döden!\n";
-            incorrectGuesses.push_back(letter);
-            incorrectGuesses.push_back(letter); // Räknas som dubbla felgissningar
-            return false;
-        }
-
-        for (size_t i = 0; i < wordToGuess.size(); ++i) {
-            if (wordToGuess[i] == letter) {
-                guessedLetters[i] = letter;
-                correct = true;
+            bool correct = false;
+            if(isLetterGuessed(letter))
+            {
+                cout <<"Du har redan gissat på bokstaven " << letter <<" försök igen!" << endl;
+                sleepForSeconds(2);
+                return false;
             }
-        }
 
-        if (!correct) {
-            incorrectGuesses.push_back(letter);
-        }
-        return correct;
+            cout << "Mystisk bokstav: " << mysteryLetter << endl; // Debug
+            if (letter == mysteryLetter) {
+                cout << "Du träffade vår mystiska bokstav och är nu än mer närmare döden!\n";
+                incorrectGuesses.push_back(letter);
+                incorrectGuesses.push_back(letter); // Räknas som dubbla felgissningar
+                return false;
             }
-        else {
+
+            for (size_t i = 0; i < wordToGuess.size(); ++i) {
+                if (wordToGuess[i] == letter) {
+                    guessedLetters[i] = letter;
+                    correct = true;
+                }
+            }
+
+            if (!correct) {
+                incorrectGuesses.push_back(letter);
+            }
+
+            return correct;
+        } else {
             hasGuessedString = true;
             if (lowerInput == wordToGuess) {
                 //guessedLetters = wordToGuess;
