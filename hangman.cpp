@@ -103,7 +103,106 @@ public:
     string randomword; 
 
     void drawHangman() const {
-        //rita ut gubbe, använd incorrectGuesses.size() för att veta hur många fel som gjorts
+        int error = incorrectGuesses.size();
+
+        if (error == 0) {
+            cout << endl;
+            cout << endl;
+            cout << endl;
+            cout << endl;
+            cout << endl;
+            cout << "   ______" << endl;
+            cout << endl;
+        }
+        if (error == 1) {
+            cout << "   |" << endl;
+            cout << "   |" << endl;
+            cout << "   |" << endl;
+            cout << "   |" << endl;
+            cout << "   |" << endl;
+            cout << "   |______" << endl;
+            cout << endl;
+        }
+        if (error == 2) {
+            cout << "   ______" << endl;
+            cout << "   |" << endl;
+            cout << "   |" << endl;
+            cout << "   |" << endl;
+            cout << "   |" << endl;
+            cout << "   |" << endl;
+            cout << "   |______" << endl;
+            cout << endl;
+        }
+        if (error == 3) {
+            cout << "   ______" << endl;
+            cout << "   |    |" << endl;
+            cout << "   |" << endl;
+            cout << "   |" << endl;
+            cout << "   |" << endl;
+            cout << "   |" << endl;
+            cout << "   |______" << endl;
+            cout << endl;
+        }
+        if (error == 4) {
+            cout << "   ______" << endl;
+            cout << "   |    |" << endl;
+            cout << "   |    O" << endl;
+            cout << "   |" << endl;
+            cout << "   |" << endl;
+            cout << "   |" << endl;
+            cout << "   |______" << endl;
+            cout << endl;
+        }
+        if (error == 5) {
+            cout << "   ______" << endl;
+            cout << "   |    |" << endl;
+            cout << "   |    O" << endl;
+            cout << "   |    |" << endl;
+            cout << "   |" << endl;
+            cout << "   |" << endl;
+            cout << "   |______" << endl;
+            cout << endl;
+        }
+        if (error == 6) {
+            cout << "   ______" << endl;
+            cout << "   |    |" << endl;
+            cout << "   |    O" << endl;
+            cout << "   |   /|" << endl;
+            cout << "   |" << endl;
+            cout << "   |" << endl;
+            cout << "   |______" << endl;
+            cout << endl;
+        }
+        if (error == 7) {
+            cout << "   ______" << endl;
+            cout << "   |    |" << endl;
+            cout << "   |    O" << endl;
+            cout << "   |   /|\\" << endl;
+            cout << "   |" << endl;
+            cout << "   |" << endl;
+            cout << "   |______" << endl;
+            cout << endl;
+        }
+        if (error == 8) {
+            cout << "   ______" << endl;
+            cout << "   |    |" << endl;
+            cout << "   |    O" << endl;
+            cout << "   |   /|\\" << endl;
+            cout << "   |   /" << endl;
+            cout << "   |" << endl;
+            cout << "   |______" << endl;
+            cout << endl;
+        }
+        if (error == 9) {
+            cout << "   ______" << endl;
+            cout << "   |    |" << endl;
+            cout << "   |    O" << endl;
+            cout << "   |   /|\\" << endl;
+            cout << "   |   / \\" << endl;
+            cout << "   |" << endl;
+            cout << "   |______" << endl;
+            cout << endl;
+        }
     }
 
     void displayStatus() const {
@@ -400,7 +499,7 @@ int main ()
     setlocale(LC_ALL, "sv_SE.UTF-8");
     cout <<"V\u00E4lkommen till spelet H\u00E4nga Gubbe!" << endl << endl << endl;
     splashScreen();
-    sleepForSeconds(3);
+    //sleepForSeconds(3);
     vector<string>words = loadWordsFromFile("words.txt");
     string guessString;
     showMenu(words, guessString);
