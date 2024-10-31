@@ -247,10 +247,9 @@ public:
 
             cout << "Mystisk bokstav: " << mysteryLetter << endl; // Debug
             if (letter == mysteryLetter) {
-                cout << "Du träffade vår mystiska bokstav och är nu än mer närmare döden!\n";
+                //cout << "Du träffade vår mystiska bokstav och är nu än mer närmare döden!\n"; // Debug
                 incorrectGuesses.push_back(letter);
                 incorrectGuesses.push_back(letter); // Räknas som dubbla felgissningar
-                //hasGuessedString = true;
                 return false;
             }
 
