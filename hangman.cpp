@@ -24,7 +24,7 @@ using namespace std;
 void instructions();
 void endGame(bool& gameIsRunning);
 void showMenu(vector<string>& words, vector<string>& letters, string& guessString);
-void gamePlay(vector<string>& words, vector<string>& letters, string& guessString);
+void gamePlay(vector<string>& words, string& guessString);
 string Randomizer(vector<string>list);
 void splashScreen();
 void clearScreen();
@@ -386,7 +386,7 @@ void gamePlay(vector<string>& words, string& guessString) {
     }
 }
 
-string Randomizer( vector<string> list) {
+string Randomizer(vector<string> list) {
     random_device rd;
     mt19937 gen(rd());
     uniform_int_distribution<> dis(0, list.size() - 1);
