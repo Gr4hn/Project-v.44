@@ -58,6 +58,10 @@ public:
             return "Failed to open file for writing.";
         }
     }
+
+    bool isNewHighScore (int newAttempts) const {
+        return attempts > newAttempts;
+    }
 };
 
 class Game
