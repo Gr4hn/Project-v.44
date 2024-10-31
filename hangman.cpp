@@ -11,6 +11,7 @@
 #include <locale>
 #include <optional>
 #include <cstdlib>
+#include <algorithm>
 
 #ifdef _WIN32
 #include <windows.h>
