@@ -402,10 +402,17 @@ void showMenu(vector<string>& words, string& guessString) {
     do
     {
         clearScreen();
-        cout << "Huvudmeny" << endl << endl
+        //cout << "Huvudmeny" << endl << endl
+        cout << " _   _                     __  __ " << endl;
+        cout << "| | | | __ _ _ __   __ _  |  \\/  | __ _ _ __ " << endl;
+        cout << "| |_| |/ _` | '_ \\ / _` | | |\\/| |/ _` | '_ \\" << endl;
+        cout << "|  _  | (_| | | | | (_| | | |  | | (_| | | | |" << endl;
+        cout << "|_| |_|\\__,_|_| |_|\\__, | |_|  |_|\\__,_|_| |_|" << endl;
+        cout << "                    |___/" << endl << endl;
+        cout
         <<"V\u00E4lj ett alternativ: " << endl
         << "1. Spela" << endl
-        << "2. Highscorelista" << endl
+        << "2. Highscore" << endl
         << "3. Instruktioner" << endl
         << "4. Avsluta" << endl
         << "Ditt val: ";
