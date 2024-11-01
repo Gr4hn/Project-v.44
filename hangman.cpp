@@ -12,6 +12,7 @@
 #include <optional>
 #include <cstdlib>
 #include <algorithm>
+#include <iomanip>
 
 #ifdef _WIN32
 #include <windows.h>
