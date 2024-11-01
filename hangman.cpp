@@ -38,7 +38,7 @@ private:
     int attempts;
 
 public:
-    Highscore() : name("Yo Mama"), attempts(10) {} //skapa temporära default värden
+    Highscore() : name("Yo Mama"), attempts(9) {} //skapa temporära default värden
 // fixa de här, de ska hantera flera namn
     optional<string> load(const string& filename) {
       ifstream inputFile(filename);
