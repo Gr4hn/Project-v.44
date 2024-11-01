@@ -268,7 +268,7 @@ public:
                 return false;
             }
 
-            cout << "Mystisk bokstav: " << mysteryLetter << endl; // Debug
+            //cout << "Mystisk bokstav: " << mysteryLetter << endl; // Debug
             if (letter == mysteryLetter) {
                 cout << "Du träffade vår mystiska bokstav och är nu än mer närmare döden!\n";
                 incorrectGuesses.push_back(letter);
