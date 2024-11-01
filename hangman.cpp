@@ -79,6 +79,7 @@ public:
         cout << "         |___/" << endl;
         cout << endl;
         cout << "1. " << name << " with " << attempts << " attempts." << endl;
+        cout << endl << endl << "Tryck på valfri tangent för att gå tillbaka till huvudmenyn." << endl;
         cin.ignore();
         cin.get();
     }
@@ -386,7 +387,7 @@ void instructions()
     << "F\u00F6r varje bokstav du gissar r\u00E4tt visas bokstaven i ordet" << endl
     << "Du kan gissa p\u00E5 hela ordet n\u00E4r som helst, men gissar du fel kommer omg\u00E5ngen att avslutas." << endl
     << "Under din spelomg\u00E5ng kommer en slumpm\u00E4ssig bokstav att r\u00E4knas som 2 gissningar. Du f\u00E5r inte veta vilken bokstav detta \u00E4r." << endl << endl
-    << "Lycka till!" << endl << endl;
+    << "Lycka till!" << endl << endl << endl;
     cout << "Tryck på valfri tangent f\u00F6r att forts\u00E4tta"  << endl;
     cin.ignore();
     cin.get();
@@ -425,7 +426,7 @@ void showMenu(vector<string>& words, string& guessString) {
         << "1. Spela" << endl
         << "2. Highscore" << endl
         << "3. Instruktioner" << endl
-        << "4. Avsluta" << endl
+        << "4. Avsluta" << endl << endl
         << "Ditt val: ";
         cin >> choice;
         switch(choice)
@@ -448,7 +449,9 @@ void showMenu(vector<string>& words, string& guessString) {
                 break;
         }
     } while (gameIsRunning);
-    cout <<"Tack f\u00F6r att du spelade!" << endl;
+    clearScreen();
+    splashScreen();
+    cout << endl << endl << setw(57) << "Tack f\u00F6r att du spelade!" << endl;
     sleepForSeconds(3);
 }
 
