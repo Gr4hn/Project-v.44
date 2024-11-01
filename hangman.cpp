@@ -120,21 +120,20 @@ public:
             cout << endl;
             cout << endl;
             cout << endl;
-            cout << "   ______" << endl;
+            cout << "" << endl;
             cout << endl;
         }
         if (error == 1) {
             cout << endl;
-            cout << "   |" << endl;
-            cout << "   |" << endl;
-            cout << "   |" << endl;
-            cout << "   |" << endl;
-            cout << "   |" << endl;
-            cout << "   |______" << endl;
+            cout << endl;
+            cout << endl;
+            cout << endl;
+            cout << endl;
+            cout << "   ______" << endl;
             cout << endl;
         }
         if (error == 2) {
-            cout << "   ______" << endl;
+            cout << endl;
             cout << "   |" << endl;
             cout << "   |" << endl;
             cout << "   |" << endl;
@@ -145,7 +144,7 @@ public:
         }
         if (error == 3) {
             cout << "   ______" << endl;
-            cout << "   |    |" << endl;
+            cout << "   |" << endl;
             cout << "   |" << endl;
             cout << "   |" << endl;
             cout << "   |" << endl;
@@ -156,7 +155,7 @@ public:
         if (error == 4) {
             cout << "   ______" << endl;
             cout << "   |    |" << endl;
-            cout << "   |    O" << endl;
+            cout << "   |" << endl;
             cout << "   |" << endl;
             cout << "   |" << endl;
             cout << "   |" << endl;
@@ -167,7 +166,7 @@ public:
             cout << "   ______" << endl;
             cout << "   |    |" << endl;
             cout << "   |    O" << endl;
-            cout << "   |    |" << endl;
+            cout << "   |" << endl;
             cout << "   |" << endl;
             cout << "   |" << endl;
             cout << "   |______" << endl;
@@ -177,7 +176,7 @@ public:
             cout << "   ______" << endl;
             cout << "   |    |" << endl;
             cout << "   |    O" << endl;
-            cout << "   |   /|" << endl;
+            cout << "   |    |" << endl;
             cout << "   |" << endl;
             cout << "   |" << endl;
             cout << "   |______" << endl;
@@ -187,7 +186,7 @@ public:
             cout << "   ______" << endl;
             cout << "   |    |" << endl;
             cout << "   |    O" << endl;
-            cout << "   |   /|\\" << endl;
+            cout << "   |   /|" << endl;
             cout << "   |" << endl;
             cout << "   |" << endl;
             cout << "   |______" << endl;
@@ -198,12 +197,22 @@ public:
             cout << "   |    |" << endl;
             cout << "   |    O" << endl;
             cout << "   |   /|\\" << endl;
-            cout << "   |   /" << endl;
+            cout << "   |" << endl;
             cout << "   |" << endl;
             cout << "   |______" << endl;
             cout << endl;
         }
         if (error == 9) {
+            cout << "   ______" << endl;
+            cout << "   |    |" << endl;
+            cout << "   |    O" << endl;
+            cout << "   |   /|\\" << endl;
+            cout << "   |   /" << endl;
+            cout << "   |" << endl;
+            cout << "   |______" << endl;
+            cout << endl;
+        }
+        if (error == 10) {
             cout << "   ______" << endl;
             cout << "   |    |" << endl;
             cout << "   |    O" << endl;
