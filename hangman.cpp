@@ -24,8 +24,9 @@ using namespace std;
 
 void instructions();
 void endGame(bool& gameIsRunning);
+void endRunningRound(bool& roundIsRunning);
 void showMenu(vector<string>& words, vector<string>& letters, string& guessString);
-void gamePlay(vector<string>& words, string& guessString);
+void gamePlay(vector<string>& words, string& guessString, bool& roundIsRunning);
 string Randomizer(vector<string>list);
 void splashScreen();
 void clearScreen();
@@ -219,6 +220,7 @@ public:
             cout << ch << " ";
         }
         cout << endl << "Antal f\u00F6rs\u00F6k kvar: " << maxAttempts - incorrectGuesses.size() << endl;
+        cout <<endl <<"För att avsluta spelet, tryck in 0.\n";
     }
 
     char selectMysteryLetter() {
@@ -407,6 +409,7 @@ void endRound (bool won) {
 void showMenu(vector<string>& words, string& guessString) {
     int choice;
     bool gameIsRunning = true;
+    bool roundIsRunning = true;
     Highscore highscore;
     clearScreen();
 
@@ -431,7 +434,8 @@ void showMenu(vector<string>& words, string& guessString) {
         switch(choice)
         {
             case 1:
-                gamePlay(words, guessString);
+                gamePlay(words, guessString, roundIsRunning);
+                
                 break;
             case 2:
                 highscore.display();
@@ -452,7 +456,11 @@ void showMenu(vector<string>& words, string& guessString) {
     sleepForSeconds(3);
 }
 
-void gamePlay(vector<string>& words, string& guessString) {
+void endRunningRound(bool& roundIsRunning) {
+    roundIsRunning = false;
+}
+
+void gamePlay(vector<string>& words, string& guessString, bool& roundIsRunning){ 
 
     string randomWord = Randomizer(words);
 
@@ -465,33 +473,36 @@ void gamePlay(vector<string>& words, string& guessString) {
     int attempts = 0;
     while(!game.endOfAttempts()) {
         game.displayStatus();
-
-        cout << "Gissa en bokstav eller ord: ";
-        cin >> guessString;
-
-        if(!game.guess(guessString[0], guessString) || game.hasGuessedString) { // Behövs guessString här egentligen? Det är ju bara en bokstav som ska gissas och om det är en string ska vi hoppa direkt till förkorat eller vunnit?
-            if (!game.hasGuessedString) {
-                cout << "Fel gissning!" << endl;
-                sleepForSeconds(2);
-            }
-        } else {
-            if (!game.hasGuessedString) {
-                cout << "R\u00E4tt gissning!" << endl;
-                sleepForSeconds(2);
-            }
+            cout << endl <<"Gissa en bokstav eller ord: ";
+            cin >> guessString;
+            if(guessString == "0") {
+                endRunningRound(roundIsRunning);
+                break;
         }
-        attempts++;
+            if(!game.guess(guessString[0], guessString) || game.hasGuessedString) { // Behövs guessString här egentligen? Det är ju bara en bokstav som ska gissas och om det är en string ska vi hoppa direkt till förkorat eller vunnit?
+                if (!game.hasGuessedString) {
+                    cout << "Fel gissning!" << endl;
+                    sleepForSeconds(2);
+                }
+            } else {
+                if (!game.hasGuessedString) {
+                    cout << "R\u00E4tt gissning!" << endl;
+                    sleepForSeconds(2);
+                }
+            }
+            attempts++;
+            
+
+            if(game.win()) { // Den här körs när man har gissat rätt bokstäver.
+                game.win();
+                cout << "Grattis! Du vann! " << "Du gissade r\u00E4tt ord: " << randomWord << endl
+                << "Antal f\u00F6rs\u00F6k: " << attempts << endl
+                << "Tryck p\u00E5 valfri tangent f\u00F6r att forts\u00E4tta" << endl;
+                cin.ignore();
+                cin.get();
+                break;
+            }
         
-
-        if(game.win()) { // Den här körs när man har gissat rätt bokstäver.
-            game.win();
-            cout << "Grattis! Du vann! " << "Du gissade r\u00E4tt ord: " << randomWord << endl
-            << "Antal f\u00F6rs\u00F6k: " << attempts << endl
-            << "Tryck p\u00E5 valfri tangent f\u00F6r att forts\u00E4tta" << endl;
-            cin.ignore();
-            cin.get();
-            break;
-        }
     }
 
     if(!game.win() && !game.hasGuessedString) { // Den här körs när man har gissat på hela ordet och får korrekt, vilket den inte ska
