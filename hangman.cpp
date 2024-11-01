@@ -261,7 +261,7 @@ public:
 
             //cout << "Mystisk bokstav: " << mysteryLetter << endl; // Debug
             if (letter == mysteryLetter) {
-                cout << "Du träffade vår mystiska bokstav och är nu än mer närmare döden!\n"; // Debug
+                cout << "Du träffade vår mystiska bokstav och är nu än mer närmare döden!\n";
                 incorrectGuesses.push_back(letter);
                 incorrectGuesses.push_back(letter); // Räknas som dubbla felgissningar
                 return false;
@@ -475,7 +475,7 @@ void gamePlay(vector<string>& words, string& guessString, bool& roundIsRunning){
     HighScore highscore;
     const string filename = "highscore.txt";
 
-    cout << "Random word: " << randomWord << endl; // Debug
+    //cout << "Random word: " << randomWord << endl; // Debug
     //cout << "Random letter: " << (game.mysteryLetter()) << endl; // Debug
     sleepForSeconds(1);
 
