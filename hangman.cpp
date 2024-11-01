@@ -9,10 +9,10 @@
 #include <random>
 #include <fstream>
 #include <locale>
-#include <optional>
 #include <cstdlib>
 #include <algorithm>
 #include <iomanip>
+#include <fstream>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -32,32 +32,35 @@ void splashScreen();
 void clearScreen();
 void sleepForSeconds(int seconds);
 
-class Highscore
+class HighScore
 {
 private:
     string name;
     int attempts;
 
 public:
-    Highscore() : name("Yo Mama"), attempts(9) {} //skapa temporära default värden
+    //HighScore() : name("Test"), attempts(10) {} //skapa temporära default värden
 // fixa de här, de ska hantera flera namn
-    optional<string> load(const string& filename) {
+
+    bool load(const string& filename) {
       ifstream inputFile(filename);
       if (inputFile) {
         inputFile >> name >> attempts;
-        return nullopt;
+            return true;
       } else {
-        return "Failed to open file for reading.";
+            cerr << "Failed to open file for reading." << endl;
+            return false;
       }
     }
 
-    optional<string> save (const string& filename) const {
+    bool save(const string& filename) const {
         ofstream inputFile(filename);
         if (inputFile) {
             inputFile << name << " " << attempts << endl;
-            return nullopt;
+            return true;
         } else {
-            return "Failed to open file for writing.";
+            cerr << "Failed to open file for writing." << endl;
+            return false;
         }
     }
 
@@ -79,8 +82,12 @@ public:
         cout << "|_| |_|_|\\__, |_| |_| |____/ \\___\\___/|_|  \\___|" << endl;
         cout << "         |___/" << endl;
         cout << endl;
+        if (name.empty()) {
+            cout << "No high score available." << endl;
+        } else {
         cout << "1. " << name << " with " << attempts << " attempts." << endl;
         cout << endl << endl << "Tryck på valfri tangent för att gå tillbaka till huvudmenyn." << endl;
+        }
         cin.ignore();
         cin.get();
     }
@@ -90,13 +97,13 @@ class Game
 {
 private:
     string wordToGuess;
-    string guessedLetters;
     string guessString;
-    vector<char> incorrectGuesses;
+    string guessedLetters;
     int maxAttempts;
     char mysteryLetter;
 
 public:
+    vector<char> incorrectGuesses;
     bool hasGuessedString = false;
     Game(const string& word, int maxAttempts = 10) : wordToGuess(word), maxAttempts(maxAttempts) {
         guessedLetters = string(word.size(), '_');
@@ -404,7 +411,13 @@ void showMenu(vector<string>& words, string& guessString) {
     int choice;
     bool gameIsRunning = true;
     bool roundIsRunning = true;
-    Highscore highscore;
+    HighScore highscore;
+    const string filename = "highscore.txt";
+
+    if (!highscore.load(filename)) {
+        cerr << "Failed to load high score." << endl << endl;
+    }
+
     clearScreen();
 
     do
@@ -429,7 +442,7 @@ void showMenu(vector<string>& words, string& guessString) {
         {
             case 1:
                 gamePlay(words, guessString, roundIsRunning);
-                
+
                 break;
             case 2:
                 highscore.display();
@@ -456,11 +469,12 @@ void endRunningRound(bool& roundIsRunning) {
     roundIsRunning = false;
 }
 
-void gamePlay(vector<string>& words, string& guessString, bool& roundIsRunning){ 
+void gamePlay(vector<string>& words, string& guessString, bool& roundIsRunning){
 
     string randomWord = Randomizer(words);
-
     Game game(randomWord);
+    HighScore highscore;
+    const string filename = "highscore.txt";
 
     cout << "Random word: " << randomWord << endl; // Debug
     //cout << "Random letter: " << (game.mysteryLetter()) << endl; // Debug
@@ -470,35 +484,46 @@ void gamePlay(vector<string>& words, string& guessString, bool& roundIsRunning){
     while(!game.endOfAttempts()) {
         game.displayStatus();
             cout << endl <<"Gissa en bokstav eller ord: ";
-            cin >> guessString;
+        cin >> guessString;
             if(guessString == "0") {
                 endRunningRound(roundIsRunning);
                 break;
         }
-            if(!game.guess(guessString[0], guessString) || game.hasGuessedString) { // Behövs guessString här egentligen? Det är ju bara en bokstav som ska gissas och om det är en string ska vi hoppa direkt till förkorat eller vunnit?
-                if (!game.hasGuessedString) {
-                    cout << "Fel gissning!" << endl;
-                    sleepForSeconds(2);
-                }
-            } else {
-                if (!game.hasGuessedString) {
-                    cout << "R\u00E4tt gissning!" << endl;
-                    sleepForSeconds(2);
-                }
+        if(!game.guess(guessString[0], guessString) || game.hasGuessedString) { // Behövs guessString här egentligen? Det är ju bara en bokstav som ska gissas och om det är en string ska vi hoppa direkt till förkorat eller vunnit?
+            if (!game.hasGuessedString) {
+                cout << "Fel gissning!" << endl;
+                sleepForSeconds(2);
             }
-            attempts++;
-            
+        } else {
+            if (!game.hasGuessedString) {
+                cout << "R\u00E4tt gissning!" << endl;
+                sleepForSeconds(2);
+            }
+        }
 
-            if(game.win()) { // Den här körs när man har gissat rätt bokstäver.
-                game.win();
-                cout << "Grattis! Du vann! " << "Du gissade r\u00E4tt ord: " << randomWord << endl
-                << "Antal f\u00F6rs\u00F6k: " << attempts << endl
-                << "Tryck p\u00E5 valfri tangent f\u00F6r att forts\u00E4tta" << endl;
-                cin.ignore();
-                cin.get();
-                break;
+        if(game.win()) { // Den här körs när man har gissat rätt bokstäver.
+            game.win();
+            int attempts = game.incorrectGuesses.size();
+            cout << "Grattis! Du vann! " << "Du gissade r\u00E4tt ord: " << randomWord << endl;
+            cout << "Antal felgissningar: " <<  attempts << endl;
+
+            string name;
+            if (highscore.isNewHighScore(attempts)) {
+                cout << "That's a new high score!" << endl;
+                cout << "Enter name: ";
+                cin >> name;
+                highscore.update(name, attempts);
+                if (!highscore.save(filename)) {
+                    cerr << "Failed to save high score." << endl;
+                }
             }
-        
+
+            cout << endl;
+            cout << "Tryck p\u00E5 valfri tangent f\u00F6r att forts\u00E4tta" << endl;
+            cin.ignore();
+            cin.get();
+            break;
+        }
     }
 
     if(!game.win() && !game.hasGuessedString) { // Den här körs när man har gissat på hela ordet och får korrekt, vilket den inte ska
@@ -526,6 +551,7 @@ int main ()
     cout << endl << setw(57) <<"V\u00E4lkommen till spelet H\u00E4nga Gubbe!" << endl << endl << endl;
     sleepForSeconds(3);
     vector<string>words = loadWordsFromFile("words.txt");
+    
     string guessString;
     showMenu(words, guessString);
     
