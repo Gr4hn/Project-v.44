@@ -38,7 +38,7 @@ private:
     int attempts;
 
 public:
-    //HighScore() : name("Test"), attempts(10) {} //skapa temporära default värden
+    HighScore() : name("Chuck Norris"), attempts(1) {} //skapa temporära default värden
 // fixa de här, de ska hantera flera namn
 
     bool load(const string& filename) {
@@ -268,7 +268,7 @@ public:
                 return false;
             }
 
-            //cout << "Mystisk bokstav: " << mysteryLetter << endl; // Debug
+            cout << "Mystisk bokstav: " << mysteryLetter << endl; // Debug
             if (letter == mysteryLetter) {
                 cout << "Du träffade vår mystiska bokstav och är nu än mer närmare döden!\n";
                 incorrectGuesses.push_back(letter);
@@ -484,7 +484,7 @@ void gamePlay(vector<string>& words, string& guessString, bool& roundIsRunning){
     HighScore highscore;
     const string filename = "highscore.txt";
 
-    //cout << "Random word: " << randomWord << endl; // Debug
+    cout << "Random word: " << randomWord << endl; // Debug
     //cout << "Random letter: " << (game.mysteryLetter()) << endl; // Debug
     sleepForSeconds(1);
 
