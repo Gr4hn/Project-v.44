@@ -399,13 +399,6 @@ void endGame(bool& gameIsRunning) {
     gameIsRunning = false;
 }
 
-void endRound (bool won) {
-    if (won) {
-        cout << "Du vann!" << endl;
-    } else {
-        cout << "Du f\u00F6rlorade!" << endl;
-    }
-}
 
 void showMenu(vector<string>& words, string& guessString) {
     int choice;
