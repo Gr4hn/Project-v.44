@@ -13,7 +13,8 @@ The program is written in C++ in totality, exept the words.txt file.
 Fredrik Storm
 Anna Schwartz 
 Eric Grahn
-
+## Software requirements specification
+Link: https://docs.google.com/document/d/17ByhfYpfIw_m5GZRuWrZiNu85a3BAkU_Ysp7LJzr2DE/edit?tab=t.0
 ## Licence
 N/A, not used.
 
