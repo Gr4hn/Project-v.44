@@ -1,13 +1,13 @@
-# Project Hang man
+# Project Hangman
 
-This game is used for fun for every person alive! This project is for teaching purpose.
+This game is used for fun for every person alive! This project is for teaching purposes.
 
-## Instalation
-To install the program click this link X
+## Installation
+To install the program, click this link: X
 
 ## Uses
-The program is a basic version of a hang man game, with a menu and different directors. You can view the rules, a highscore list, play a game and exit the program. 
-The program is written in C++ in totality, exept the words.txt file. 
+The program is a basic version of a hangman game with a menu and different directors. You can view the rules and high score list, play a game, and exit the program. 
+The game is written in C++ in totality, except for the words.txt file. 
 
 ## Contributing
 Fredrik Storm
